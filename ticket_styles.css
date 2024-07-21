@@ -43,3 +43,22 @@ h1 {
 #search-button:hover {
     background-color: #0056b3;
 }
+
+#suggestions {
+    margin-top: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    position: absolute;
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f1f1f1;
+}
