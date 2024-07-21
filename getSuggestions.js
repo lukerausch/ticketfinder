@@ -4,11 +4,12 @@ const port = 3000;
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
+// Set up connection to the database
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'ticketadmin',
-    password: '123ticketadmin123',
-    database: 'dbhfc20ivr8f3y'
+    user: 'root',
+    password: 'password',
+    database: 'ticketfinder'
 });
 
 connection.connect(err => {
