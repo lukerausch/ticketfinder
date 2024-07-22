@@ -7,8 +7,8 @@ const mysql = require('mysql');
 // Set up connection to the database
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'u3ktcmghkrsgc',
+    password: '123adminticket123',
     database: 'ticketfinder'
 });
 
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.get('/search', (req, res) => {
     const query = req.query.query;
     connection.query(
-        'SELECT name FROM artists WHERE name LIKE ?',
+        'SELECT artist FROM artists WHERE artist LIKE ?',
         [`%${query}%`],
         (error, results) => {
             if (error) throw error;
