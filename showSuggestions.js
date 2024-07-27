@@ -84,6 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return tags.some(tag => ["music", "show", "concert"].includes(tag.toLowerCase()));
             });
 
+            filteredEvents.sort((a, b) => new Date(b.start_time) - new Date(a.start_time));
+
             let events = filteredEvents.map(event => `
                 <div class="event-item">
                     <div class="event-details">
