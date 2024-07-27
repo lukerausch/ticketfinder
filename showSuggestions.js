@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div>${event.start_time}</div>
                         <div>${event.venue ? event.venue.name : 'Unknown Venue'}</div>
                     </div>
-                    <a href="${event.link}" target="_blank">More details</a>
                 </div>
             `).join('');
 
