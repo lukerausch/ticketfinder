@@ -10,11 +10,12 @@
         <h1>TicketFinder</h1>
     </header>
     <main>
-        <div class="search-container">
+        <div class="search-container" id="search-container">
             <input type="text" placeholder="Search for events..." id="search-bar" oninput="showSuggestions(this.value)">
-            <button id="search-button">Search</button>
+            <button id="search-button" onclick="searchEvents()">Search</button>
         </div>
         <div id="suggestions"></div>
+        <div id="events"></div>
     </main>
     <script src="showSuggestions.js"></script>
 </body>
