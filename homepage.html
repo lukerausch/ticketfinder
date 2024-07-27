@@ -10,13 +10,81 @@
         <h1>TicketFinder</h1>
     </header>
     <main>
-        <div class="search-container" id="search-container">
+        <div class="search-container">
             <input type="text" placeholder="Search for events..." id="search-bar" oninput="showSuggestions(this.value)">
-            <button id="search-button" onclick="searchEvents()">Search</button>
+            <button id="search-button">Search</button>
         </div>
         <div id="suggestions"></div>
-        <div id="events"></div>
+
+        <div id="results">  
+            <br><br>
+            
+        </div>
+
+
     </main>
     <script src="showSuggestions.js"></script>
+
+    <script>
+
+    document.getElementById('search-button').addEventListener('click', () => {
+                // Get input value
+                const searchTerm = document.getElementById('search-bar').value;
+                
+                // Log the search term (for demonstration purposes)
+                console.log('Search Term:', searchTerm);
+
+        
+     
+    const apiFetchLink = 'https://app.ticketmaster.com/discovery/v2/events.json?keyword=' + searchTerm + '&apikey=NRNGP7p9IHnBQvw0ip9rH6d5W7gxbimk'
+    fetch(apiFetchLink, { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Check if _embedded exists and contains events
+            if (data && data._embedded && data._embedded.events) {
+                const events = data._embedded.events;
+
+
+                for (i=0; i< events.length; i++) {
+                    console.log(i);
+
+                    const currEvent = events[i];
+
+                    if (currEvent.dates.start.localDate && currEvent.priceRanges !=undefined && currEvent.url !=undefined) {
+                        const date = currEvent.dates.start.localDate
+                        const lowestPrice = currEvent.priceRanges[0].min;
+                        const url = currEvent.url;
+
+                        const eventDiv = document.createElement('div');
+                        const resultsDiv = document.getElementById('results');
+                    
+                    eventDiv.innerHTML = `
+                        <p>Date: ${date} </p> 
+                        <p>Lowest price: ${lowestPrice} </p> 
+    
+                        <a href="${url}">Buy tickets</a>
+
+                        <br><br><br><br>
+                        `;
+
+				    resultsDiv.appendChild(eventDiv);
+
+                    }}
+
+                    
+                    
+
+                ;
+                
+
+                console.log('Events:', events);
+            } else {
+                console.error('Error: _embedded.events is missing in the response');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    })
+    </script>
 </body>
 </html>
