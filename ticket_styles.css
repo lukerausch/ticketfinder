@@ -96,3 +96,11 @@ h1 {
     align-items: center;
     border-left: 1px solid #ccc;
 }
+
+.suggestion-item.highlight {
+    background-color: #007BFF;
+}
+
+#search-button.highlight {
+    background-color: #28a745;
+}
