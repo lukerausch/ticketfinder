@@ -60,8 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
             searchButton.classList.remove('highlight');
         }, 500);
 
-        // Move the search container to the top
-        document.getElementById('search-container').classList.add('move-up');
+        // Remove header and search bar
+        document.querySelector('header').style.display = 'none';
+        document.getElementById('search-container').style.display = 'none';
+        document.getElementById('suggestions').style.display = 'none';
 
         // Make API call to fetch events
         const apiFetchLink = `https://app.ticketmaster.com/discovery/v2/events.json?keyword=${query}&apikey=NRNGP7p9IHnBQvw0ip9rH6d5W7gxbimk`;
@@ -74,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const events = data._embedded.events;
 
                     const resultsDiv = document.getElementById('results');
-                    resultsDiv.innerHTML = ''; // Clear previous results
+                    resultsDiv.innerHTML = `<h2>Results for "${query}"</h2>`; // Clear previous results and add heading
 
                     for (let i = 0; i < events.length; i++) {
                         console.log(i);
@@ -87,12 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             const url = currEvent.url;
 
                             const eventDiv = document.createElement('div');
+                            eventDiv.classList.add('event-item');
 
                             eventDiv.innerHTML = `
-                                <p>Date: ${date}</p> 
-                                <p>Lowest price: ${lowestPrice}</p> 
-                                <a href="${url}">Buy tickets</a>
-                                <br><br><br><br>
+                                <div class="event-details">
+                                    <div class="event-date">${date}</div>
+                                    <div class="event-price">$${lowestPrice}</div>
+                                    <div class="event-link"><a href="${url}">Buy tickets</a></div>
+                                </div>
                             `;
 
                             resultsDiv.appendChild(eventDiv);
@@ -106,42 +110,42 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => console.error('Error:', error));
     }
-});
 
-function showSuggestions(query) {
-    if (query.length === 0) {
-        document.getElementById('suggestions').innerHTML = '';
-        return;
-    }
+    function showSuggestions(query) {
+        if (query.length === 0) {
+            document.getElementById('suggestions').innerHTML = '';
+            return;
+        }
 
-    // Make API call to fetch suggestions
-    const apiFetchLink = `https://app.ticketmaster.com/discovery/v2/suggest?apikey=NRNGP7p9IHnBQvw0ip9rH6d5W7gxbimk&keyword=${query}`;
-    fetch(apiFetchLink, { method: 'GET' })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Suggestion data:', data);
-            if (data && data._embedded && data._embedded.attractions) {
-                const suggestions = data._embedded.attractions.map(attraction => `
-                    <div class="suggestion-item" data-value="${attraction.name}">${attraction.name}</div>
-                `).join('');
-                document.getElementById('suggestions').innerHTML = suggestions;
+        // Make API call to fetch suggestions
+        const apiFetchLink = `https://app.ticketmaster.com/discovery/v2/suggest?apikey=NRNGP7p9IHnBQvw0ip9rH6d5W7gxbimk&keyword=${query}`;
+        fetch(apiFetchLink, { method: 'GET' })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Suggestion data:', data);
+                if (data && data._embedded && data._embedded.attractions) {
+                    const suggestions = data._embedded.attractions.map(attraction => `
+                        <div class="suggestion-item" data-value="${attraction.name}">${attraction.name}</div>
+                    `).join('');
+                    document.getElementById('suggestions').innerHTML = suggestions;
 
-                // Add click event listeners to each suggestion item
-                document.querySelectorAll('.suggestion-item').forEach(item => {
-                    item.addEventListener('click', function () {
-                        const value = this.getAttribute('data-value');
-                        console.log('Suggestion clicked:', value); // Debug log
-                        searchBar.value = value;
-                        document.getElementById('suggestions').innerHTML = '';
-                        searchEvents();
+                    // Add click event listeners to each suggestion item
+                    document.querySelectorAll('.suggestion-item').forEach(item => {
+                        item.addEventListener('click', function () {
+                            const value = this.getAttribute('data-value');
+                            console.log('Suggestion clicked:', value); // Debug log
+                            searchBar.value = value;
+                            document.getElementById('suggestions').innerHTML = '';
+                            searchEvents();
+                        });
                     });
-                });
-            } else {
-                document.getElementById('suggestions').innerHTML = '<div class="error">No suggestions found</div>';
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching suggestions:', error);
-            document.getElementById('suggestions').innerHTML = `<div class="error">${error.message}</div>`;
-        });
-}
+                } else {
+                    document.getElementById('suggestions').innerHTML = '<div class="error">No suggestions found</div>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching suggestions:', error);
+                document.getElementById('suggestions').innerHTML = `<div class="error">${error.message}</div>`;
+            });
+    }
+});
