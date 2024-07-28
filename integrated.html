@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TicketFinder</title>
+    <link rel="stylesheet" href="ticket_styles.css">
+    <style>
+        .suggestion-item {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .suggestion-item.highlight {
+            background-color: #ddd;
+        }
+        .move-up {
+            margin-top: -50px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TicketFinder</h1>
+    </header>
+    <main>
+        <div id="search-container" class="search-container">
+            <input type="text" placeholder="Search for events..." id="search-bar">
+            <button id="search-button">Search</button>
+        </div>
+        <div id="suggestions"></div>
+        <div id="results"></div>
+    </main>
+    <script src="showSuggestions.js"></script>
+</body>
+</html>
