@@ -7,7 +7,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: rgb(242, 194, 242);
 }
 
 header {
@@ -15,7 +15,12 @@ header {
 }
 
 h1 {
-    color: #333;
+    color: navy;
+}
+
+h2 {
+    color: navy;
+    align-items: center;
 }
 
 .search-container {
@@ -33,7 +38,7 @@ h1 {
 #search-button {
     padding: 10px 15px;
     border: none;
-    background-color: #007BFF;
+    background-color: purple;
     color: white;
     cursor: pointer;
     border-radius: 4px;
@@ -74,33 +79,19 @@ h1 {
     width: 80%;
 }
 
-.event-item h3 {
-    margin: 0 0 10px;
-    color: #007BFF;
-    width: 40%;
-    padding-left: 2%;
-    padding-right: 2%;
-    align-items: center;
-}
-
 .event-details {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .event-details div {
     flex: 1;
     text-align: center;
     padding: 5px;
-    width: 30%;
-    align-items: center;
     border-left: 1px solid #ccc;
 }
 
-.suggestion-item.highlight {
-    background-color: #007BFF;
-}
-
-#search-button.highlight {
-    background-color: #28a745;
+.event-details div:first-child {
+    border-left: none;
 }
