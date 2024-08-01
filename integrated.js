@@ -174,7 +174,7 @@ async function getRecommendations(artistId, access_token) {
     throw error;
   }}
 
-
+//(code I wrote ends here)
 
     function showSuggestions(artistName) {
         if (artistName.length === 0) {
