@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artist Details</title>
+    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="artist.css">
 </head>
 <body>
@@ -10,8 +12,27 @@
         <h1>Artist Details</h1>
     </header>
     <main>
-        <div id="artist-info" class="artist-info"></div>
-        <div id="top-tracks" class="top-tracks"></div>
+        <div class="grid-container">
+            <div class="grid-item artist-info">
+                <div id="artist-name"></div>
+                <img id="artist-image" alt="Artist Image">
+                <div id="artist-genres"></div>
+                <div id="artist-followers"></div>
+            </div>
+            <div class="grid-item songs-list" id="top-songs">
+                <!-- Top 8 songs will be inserted here -->
+            </div>
+            <div class="grid-item related-artists-form">
+                <form id="related-artists-form">
+                    <input type="text" id="artist-input" placeholder="Enter up to 5 artists...">
+                    <button type="button" id="submit-artists">Find Related Artists</button>
+                    <div id="related-artists-list"></div>
+                </form>
+            </div>
+        </div>
+        <div id="related-songs">
+            <!-- Related artists' top songs will be displayed here -->
+        </div>
     </main>
     <script src="artist.js"></script>
 </body>
